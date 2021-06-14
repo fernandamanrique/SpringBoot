@@ -1,8 +1,5 @@
 package com.asesoftware.semilla.EjercicioSpringBoot.controller;
 
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.asesoftware.semilla.EjercicioSpringBoot.entity.ComerciosEntity;
+import com.asesoftware.semilla.EjercicioSpringBoot.controller.dto.ComerciosDTO;
+import com.asesoftware.semilla.EjercicioSpringBoot.controller.dto.ResponseDTO;
 import com.asesoftware.semilla.EjercicioSpringBoot.service.IComerciosService;
 
 @RestController
@@ -25,40 +22,45 @@ public class ComerciosController {
 	///listar todo
 	
 	@GetMapping(path = "/all")
-	public List<ComerciosEntity> getAll(){
+	public ResponseDTO getAll(){
 		return  comerciosService.geAll();
 	}	
 
 	//listar uno
 	
 	@GetMapping(path = "/comercios/{id_comercio}")
-	public ComerciosEntity getComerciosById(@PathVariable Integer id_comercio) {
+	public ResponseDTO getComerciosById(@PathVariable Integer id_comercio) {
 		return comerciosService.getComerciosById(id_comercio);
 	}
 	
-	@GetMapping(path = "/comercios")
-	public ComerciosEntity getComerciosParametroById(@RequestParam Integer id_comercio) {
+	@GetMapping(path = "/parametro")
+	public ResponseDTO getComerciosParametroById(@RequestParam Integer id_comercio) {
 		return comerciosService.getComerciosById(id_comercio);
 		
 	}
 	
 	///crear
-	@GetMapping(path = "/crear",consumes = "application/json",produces = "application/json")
-	public ComerciosEntity createComercios(@RequestBody ComerciosEntity entity) {
-		return comerciosService.createComercios(entity);
+	@PostMapping(path = "/crear",consumes = "application/json",produces = "application/json")
+	public ResponseDTO createComercios(@RequestBody ComerciosDTO comercioDTO) {
+		return comerciosService.createComercios(comercioDTO);
 	}
 	
 	///editar
 	@PostMapping(path = "/editar",consumes = "application/json",produces = "application/json")
-	public ComerciosEntity editarComercios(@RequestBody ComerciosEntity entity) {
-		return comerciosService.updateComercios(entity);
+	public ResponseDTO editarComercios(@RequestBody ComerciosDTO comercioDTO) {
+		return comerciosService.updateComercios(comercioDTO);
 	}
 	
 	///eliminar
 	@GetMapping(path = "/delete/{id_comercio}")
-	public void eliminarComercios(@PathVariable Integer id_comercio){
-		comerciosService.deleteComercios(id_comercio);
+	public ResponseDTO eliminarComercios(@PathVariable Integer id_comercio){
+		return comerciosService.deleteComercios(id_comercio);
 	}
 	
+	//buscar por id
+	@GetMapping(path = "/{id_comercio}")
+	public ResponseDTO buscarPorId(@PathVariable Integer id_comercio){
+		return comerciosService.buscarPorId(id_comercio);
+	}
 
 }

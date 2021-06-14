@@ -1,20 +1,25 @@
 package com.asesoftware.semilla.EjercicioSpringBoot.service;
 
-import java.util.List;
 
-import com.asesoftware.semilla.EjercicioSpringBoot.entity.ServiciosEntity;
+
+import com.asesoftware.semilla.EjercicioSpringBoot.controller.dto.ResponseDTO;
+import com.asesoftware.semilla.EjercicioSpringBoot.controller.dto.ServiciosDTO;
 
 public interface IServiciosService {
 	
-	public List<ServiciosEntity> geAll();
+	public ResponseDTO geAll();
 	
-	public ServiciosEntity getServiciosById(Integer id_servicio);
+	public ResponseDTO getServiciosById(Integer id_servicio);
+	public ResponseDTO getServiciosParametroById(Integer id_servicio);
 	
-	public ServiciosEntity createServicios(ServiciosEntity serviciosEntity);
+	public ResponseDTO createServicios(ServiciosDTO serviciosDTO);
 	
-	public ServiciosEntity updateServicios(ServiciosEntity serviciosEntity);
+	public ResponseDTO updateServicios(ServiciosDTO serviciosDTO);
 	
-	public void deleteServicios(Integer id_servicio);
+	public ResponseDTO deleteServicios(Integer id_servicio);
+
+	public ResponseDTO buscarPorId(Integer id_servicio);
+
 	
 
 }
